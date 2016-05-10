@@ -16,14 +16,11 @@ end
 get '/' do
   if !request.host.end_with?(SUFFIX)
     subdomain = SecureRandom.hex(16)
-    
+
     @server = "#{subdomain}#{SUFFIX}"
     erb :index
   else
-    if request.host.end_with?(SUFFIX)
-      domain_sufix = ".#{DOMAIN}"
-      update_domain(request.host)
-    end
+    update_domain(request.host)
     erb :subdomain
   end
 end
@@ -65,4 +62,3 @@ def update_domain(subdomain)
   )
 
 end
-
