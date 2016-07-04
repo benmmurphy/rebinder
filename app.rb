@@ -57,6 +57,24 @@ def update_domain(subdomain)
             ]
           },
         },
+        {
+          # required
+          action: "UPSERT",
+          # required
+          resource_record_set: {
+            # required
+            name: "#{subdomain}",
+            # required
+            type: "AAAA",
+            ttl: 60,
+            resource_records: [
+              {
+                # required
+                value: "0:0:0:0:0:0:0:1",
+              },
+            ]
+          },
+        },
       ],
     },
   )
