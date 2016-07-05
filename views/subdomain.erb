@@ -10,12 +10,18 @@
           }
 
           if (xhr.status == 404) {
-            //var token = xhr.response.match(/console\/repl_sessions\/([^']+)'/)[1];
-            var token = xhr.response.match(/data-session-id='([^']+)'/)[1];
+            var match = xhr.response.match(/console\/repl_sessions\/([^']+)'/);
+            var path;
+            if (match == null) {
+              match = xhr.response.match(/data-session-id='([^']+)'/);
+              path = document.location.origin + "/__web_console/repl_sessions/" + match[1];
+            } else {
+              path = document.location.origin + "/console/repl_sessions/" + match[1];
+            }
+
             var open = new XMLHttpRequest();
 
-            //open.open("PUT", document.location.origin + "/console/repl_sessions/" + token);
-            open.open("PUT", document.location.origin + "/__web_console/repl_sessions/" + token);
+            open.open("PUT", path);
             open.setRequestHeader("Accept", "application/vnd.web-console.v2");
             open.setRequestHeader("X-Requested-With", "XMLHttpRequest");
             open.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
