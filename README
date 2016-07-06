@@ -1,0 +1,13 @@
+Rails DNS Rebinder POC
+----------------------
+
+This is intended to be run on an EC2 machine with a IAM role that can modify Route53 DNS. I use the IAM Policy: AmazonRoute53FullAccess
+
+You should also set up a wildcard entry in Route53.
+
+For example I use the zone dnsrebinder.net so I have a wildcard 'A' entry *.dnsrebinder.net pointing to my EC2 machine's IP address.
+
+You also need to modify the DOMAIN and HOSTED_ZONE_ID variables in app.rb to be the name of your domain and ID of your zone Route53.
+
+This is a Rack application so can be deployed using Passenger or your preferred Rack method.
+
