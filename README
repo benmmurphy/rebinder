@@ -11,3 +11,5 @@ You also need to modify the DOMAIN and HOSTED_ZONE_ID variables in app.rb to be 
 
 This is a Rack application so can be deployed using Passenger or your preferred Rack method.
 
+Details about the rebinding attack can be found at: http://benmmurphy.github.io/blog/2016/07/11/rails-webconsole-dns-rebinding/
+
